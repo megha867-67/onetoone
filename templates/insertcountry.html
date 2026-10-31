@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+            
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f6fc;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        h2 {
+            text-align: center;
+            color: #075985;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #075985;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+        }
+    
+    </style>
+</head>
+<body>
+   <div class="container">
+
+    <h2>Country and Capital</h2>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="{{ form.countryname.id_for_label }}">
+            Country Name
+        </label>
+        {{ form.countryname }}
+
+        {% for error in form.countryname.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <label for="{{ form.capitalname.id_for_label }}">
+            Capital Name
+        </label>
+        {{ form.capitalname }}
+
+        {% for error in form.capitalname.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <button type="submit">Save Country</button>
+    </form>
+
+    <p>
+        <a href="{% url 'countrylist' %}">
+            View Countries and Capitals
+        </a>
+    </p>
+
+</div>
+ 
+</body>
+</html>
